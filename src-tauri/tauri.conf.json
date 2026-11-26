@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Listy",
   "version": "0.1.0",
-  "identifier": "com.listy.app",
+  "identifier": "uz.mohirlab.listy",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -58,7 +58,12 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "windows": {
+      "wix": {
+        "upgradeCode": "b8a2aebf-8cfa-566e-b8e0-d39b7090eb6b"
+      }
+    }
   },
   "plugins": {
     "updater": {
