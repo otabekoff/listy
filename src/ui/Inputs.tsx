@@ -1,5 +1,6 @@
 import React from "react";
 import { Check } from "lucide-react";
+import { Tooltip } from "./Overlays";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   appearance?: "primary" | "secondary" | "subtle" | "transparent";
@@ -157,6 +158,7 @@ export const Switch: React.FC<{
 );
 
 const RadioGroupContext = React.createContext<{
+  name?: string;
   value: string;
   onChange: (val: string) => void;
 }>({ value: "", onChange: () => {} });
@@ -166,33 +168,48 @@ export const RadioGroup: React.FC<{
   onChange?: (_: unknown, data: { value: string }) => void;
   layout?: "horizontal" | "vertical";
   children: React.ReactNode;
-}> = ({ value, onChange, layout = "vertical", children }) => (
-  <RadioGroupContext.Provider
-    value={{
-      value,
-      onChange: (val) => onChange?.(null, { value: val }),
-    }}
-  >
-    <div className={`win-radio-group ${layout}`}>{children}</div>
-  </RadioGroupContext.Provider>
-);
+}> = ({ value, onChange, layout = "vertical", children }) => {
+  // One name per group, so the browser gives it arrow-key navigation.
+  const name = React.useId();
+  return (
+    <RadioGroupContext.Provider
+      value={{
+        name,
+        value,
+        onChange: (val) => onChange?.(null, { value: val }),
+      }}
+    >
+      <div className={`win-radio-group ${layout}`} role="radiogroup">
+        {children}
+      </div>
+    </RadioGroupContext.Provider>
+  );
+};
 
-export const Radio: React.FC<{ value: string; label: string }> = ({
+export const Radio: React.FC<{ value: string; label: string; description?: string }> = ({
   value,
   label,
+  description,
 }) => {
   const ctx = React.useContext(RadioGroupContext);
   const checked = ctx.value === value;
-  return (
+  const radio = (
     <label className="win-radio-label">
+      {/* Visually hidden (not display:none) so it stays reachable with Tab and arrow keys. */}
       <input
         type="radio"
+        className="win-checkbox-input"
+        name={ctx.name}
+        value={value}
         checked={checked}
+        aria-description={description}
         onChange={() => ctx.onChange(value)}
-        style={{ display: "none" }}
       />
       <span className={`win-radio-circle ${checked ? "checked" : ""}`} />
       <span>{label}</span>
     </label>
   );
+  // The description is a hover tooltip (and read out by screen readers), so every option
+  // stays a single line with the circle centred on it.
+  return description ? <Tooltip content={description}>{radio}</Tooltip> : radio;
 };
