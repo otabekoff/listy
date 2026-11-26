@@ -109,9 +109,6 @@ export const SettingsPage: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         gap: "20px",
-        maxWidth: "840px",
-        width: "100%",
-        margin: "0 auto",
       }}
     >
       <Title2>{t("settings.title")}</Title2>

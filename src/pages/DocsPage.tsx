@@ -327,9 +327,6 @@ export const DocsPage: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         gap: "18px",
-        maxWidth: "840px",
-        width: "100%",
-        margin: "0 auto",
       }}
     >
       <div>

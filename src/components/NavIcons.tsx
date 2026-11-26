@@ -152,3 +152,33 @@ export const NavDocsIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
     <rect x="8" y="17" width="5.2" height="1.8" rx="0.9" fill="#FFFFFF" fillOpacity="0.78" />
   </svg>
 );
+
+export const NavTodayIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="winTodayPage" x1="4" y1="6" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="100%" stopColor="#CBD5E1" />
+      </linearGradient>
+      <linearGradient id="winTodayHeader" x1="3" y1="4" x2="21" y2="9" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#F87171" />
+        <stop offset="100%" stopColor="#DC2626" />
+      </linearGradient>
+      <linearGradient id="winTodayCheck" x1="8" y1="11" x2="16" y2="18" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#4ADE80" />
+        <stop offset="100%" stopColor="#16A34A" />
+      </linearGradient>
+    </defs>
+    <rect x="3" y="4.5" width="18" height="16.5" rx="3.2" fill="url(#winTodayPage)" />
+    <path d="M3 7.7C3 5.93 4.43 4.5 6.2 4.5H17.8C19.57 4.5 21 5.93 21 7.7V9.2H3V7.7Z" fill="url(#winTodayHeader)" />
+    <rect x="7" y="2.6" width="2.2" height="4.4" rx="1.1" fill="#475569" />
+    <rect x="14.8" y="2.6" width="2.2" height="4.4" rx="1.1" fill="#475569" />
+    <path
+      d="M8.4 14.6L10.9 17.1L15.9 12.1"
+      stroke="url(#winTodayCheck)"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

@@ -553,3 +553,10 @@ body,
   gap: 2px;
   margin: 2px 0 0 2px;
 }
+
+/* Every page shares one content width, so the left edge doesn't jump between pages. */
+.listy-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}

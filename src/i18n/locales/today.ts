@@ -2,6 +2,10 @@ import type { Namespace } from "../index";
 
 const ns: Namespace = {
   en: {
+    doneToday: "Done today",
+    reopen: "Mark \"{title}\" as not done",
+    completed: "Done: {title} (stays in {list})",
+    movedTo: "{title} repeats: next on {date}",
     title: "Today",
     subtitle: "Overdue items, today's items and the next 7 days, from all your lists.",
     overdue: "Overdue",
@@ -12,6 +16,10 @@ const ns: Namespace = {
     complete: "Complete \"{title}\"",
   },
   uz: {
+    doneToday: "Bugun bajarildi",
+    reopen: "\"{title}\" ni bajarilmagan deb belgilash",
+    completed: "Bajarildi: {title} ({list} ro‘yxatida qoladi)",
+    movedTo: "{title} takrorlanadi: keyingisi {date}",
     title: "Bugun",
     subtitle: "Barcha ro‘yxatlaringizdagi muddati o‘tgan, bugungi va keyingi 7 kunlik elementlar.",
     overdue: "Muddati o‘tgan",
@@ -22,6 +30,10 @@ const ns: Namespace = {
     complete: "\"{title}\" ni bajarildi deb belgilash",
   },
   ru: {
+    doneToday: "Выполнено сегодня",
+    reopen: "Снять отметку с «{title}»",
+    completed: "Готово: {title} (остаётся в списке «{list}»)",
+    movedTo: "{title} повторяется: следующий раз {date}",
     title: "Сегодня",
     subtitle: "Просроченные, сегодняшние и ближайшие 7 дней — из всех ваших списков.",
     overdue: "Просрочено",
