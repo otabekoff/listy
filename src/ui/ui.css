@@ -283,8 +283,7 @@
 .win-radio-label {
   position: relative;
   display: inline-flex;
-  /* Circle stays on the first line when the text wraps. */
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   cursor: pointer;
   user-select: none;
@@ -297,8 +296,6 @@
   flex-shrink: 0;
   width: 18px;
   height: 18px;
-  /* Centre on the letters of the first line (20px line box), not on its box. */
-  margin-top: 2px;
   border-radius: 50%;
   border: 1.5px solid var(--win-border-hover);
   transition: border-width 0.1s ease, border-color 0.1s ease;
@@ -313,17 +310,6 @@
   outline-offset: 2px;
 }
 
-.win-radio-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.win-radio-description {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--win-fg-3);
-}
 
 .win-radio-circle.checked,
 .win-radio-label:hover .win-radio-circle.checked {

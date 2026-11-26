@@ -1,5 +1,6 @@
 import React from "react";
 import { Check } from "lucide-react";
+import { Tooltip } from "./Overlays";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   appearance?: "primary" | "secondary" | "subtle" | "transparent";
@@ -192,7 +193,7 @@ export const Radio: React.FC<{ value: string; label: string; description?: strin
 }) => {
   const ctx = React.useContext(RadioGroupContext);
   const checked = ctx.value === value;
-  return (
+  const radio = (
     <label className="win-radio-label">
       {/* Visually hidden (not display:none) so it stays reachable with Tab and arrow keys. */}
       <input
@@ -201,13 +202,14 @@ export const Radio: React.FC<{ value: string; label: string; description?: strin
         name={ctx.name}
         value={value}
         checked={checked}
+        aria-description={description}
         onChange={() => ctx.onChange(value)}
       />
       <span className={`win-radio-circle ${checked ? "checked" : ""}`} />
-      <span className="win-radio-text">
-        <span>{label}</span>
-        {description && <span className="win-radio-description">{description}</span>}
-      </span>
+      <span>{label}</span>
     </label>
   );
+  // The description is a hover tooltip (and read out by screen readers), so every option
+  // stays a single line with the circle centred on it.
+  return description ? <Tooltip content={description}>{radio}</Tooltip> : radio;
 };

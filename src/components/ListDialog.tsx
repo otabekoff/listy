@@ -251,7 +251,7 @@ export const ListDialog: React.FC<ListDialogProps> = ({
                       style={{
                         display: "grid",
                         gridTemplateColumns: "1fr 1fr",
-                        gap: "12px 20px",
+                        gap: "10px 20px",
                         width: "100%",
                       }}
                     >
