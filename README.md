@@ -36,13 +36,13 @@ listy-cli help                       # every command
 
 ```bash
 # Install frontend dependencies
-npm install
+bun install
 
 # Run desktop app in development
-npm run tauri dev
+bun run tauri dev
 
 # Frontend type-check, build & unit tests
-npm run build && npm test
+bun run build && bun run test
 
 # Rust tests (storage, backup/import, recurrence) and lints
 cargo test --manifest-path src-tauri/Cargo.toml
