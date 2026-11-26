@@ -24,7 +24,26 @@ fn pointer_file_path(app: &AppHandle) -> Result<PathBuf> {
         .app_local_data_dir()
         .map_err(|e| format!("Failed to resolve app data dir: {e}"))?;
     fs::create_dir_all(&dir).map_err(|e| format!("Failed to create app data dir: {e}"))?;
-    Ok(dir.join("storage_pointer.json"))
+    let pointer = dir.join("storage_pointer.json");
+    migrate_legacy_pointer(&dir, &pointer);
+    Ok(pointer)
+}
+
+/// Before 0.2 the app used the identifier `com.listy.app`, so its storage pointer lives in
+/// that app-data folder. Copy it over once, so an upgrade keeps the chosen storage folder.
+fn migrate_legacy_pointer(dir: &Path, pointer: &Path) {
+    if pointer.exists() {
+        return;
+    }
+    let Some(legacy) = dir
+        .parent()
+        .map(|p| p.join(core::LEGACY_APP_ID).join("storage_pointer.json"))
+    else {
+        return;
+    };
+    if legacy.is_file() {
+        let _ = fs::copy(&legacy, pointer);
+    }
 }
 
 fn default_storage_root(app: &AppHandle) -> Result<PathBuf> {
@@ -261,4 +280,28 @@ pub fn open_storage_folder(app: AppHandle) -> Result<()> {
 #[tauri::command]
 pub fn remove_attachment_file(app: AppHandle, list_id: String, file_name: String) -> Result<()> {
     core::remove_attachment_in(&root(&app)?, &list_id, &file_name)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn legacy_storage_pointer_is_copied_once() {
+        let tmp = tempfile::TempDir::new().unwrap();
+        let legacy_dir = tmp.path().join(core::LEGACY_APP_ID);
+        fs::create_dir_all(&legacy_dir).unwrap();
+        fs::write(legacy_dir.join("storage_pointer.json"), r#"{"storagePath":"D:\Old"}"#).unwrap();
+
+        let dir = tmp.path().join(core::APP_ID);
+        fs::create_dir_all(&dir).unwrap();
+        let pointer = dir.join("storage_pointer.json");
+        migrate_legacy_pointer(&dir, &pointer);
+        assert!(fs::read_to_string(&pointer).unwrap().contains("Old"));
+
+        // A pointer the new version already wrote is never overwritten.
+        fs::write(&pointer, r#"{"storagePath":"D:\New"}"#).unwrap();
+        migrate_legacy_pointer(&dir, &pointer);
+        assert!(fs::read_to_string(&pointer).unwrap().contains("New"));
+    }
 }

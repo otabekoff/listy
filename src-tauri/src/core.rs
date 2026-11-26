@@ -31,6 +31,11 @@ const LISTS: &str = "lists";
 const TRASH: &str = "trash";
 const ATTACHMENTS: &str = "attachments";
 
+/// The app's bundle identifier; its app-data folder holds the storage pointer.
+pub const APP_ID: &str = "uz.mohirlab.listy";
+/// The identifier used before 0.2 (`.app` suffix clashes with macOS bundles).
+pub const LEGACY_APP_ID: &str = "com.listy.app";
+
 /// Name of the bundle file inside a full-backup `.zip`.
 const BACKUP_JSON: &str = "backup.json";
 /// Name of the list file inside a single-list `.zip` export.
@@ -189,26 +194,26 @@ pub fn resolve_headless_storage_root(override_path: Option<&str>) -> Result<Path
         return Ok(pb);
     }
 
-    // The desktop app keeps a pointer in its app_local_data_dir.
-    const APP_ID: &str = "com.listy.app";
-    let pointer_candidates = [
-        env::var("LOCALAPPDATA")
-            .ok()
-            .map(|d| PathBuf::from(d).join(APP_ID)),
-        env::var("XDG_DATA_HOME")
-            .ok()
-            .map(|d| PathBuf::from(d).join(APP_ID)),
+    // The desktop app keeps a pointer in its app_local_data_dir, which is named after the
+    // bundle identifier. Versions before 0.2 used the legacy identifier.
+    let data_dirs = [
+        env::var("LOCALAPPDATA").ok().map(PathBuf::from),
+        env::var("XDG_DATA_HOME").ok().map(PathBuf::from),
         env::var("HOME")
             .ok()
-            .map(|h| PathBuf::from(h).join(".local").join("share").join(APP_ID)),
-        env::var("HOME").ok().map(|h| {
-            PathBuf::from(h)
-                .join("Library")
-                .join("Application Support")
-                .join(APP_ID)
-        }),
+            .map(|h| PathBuf::from(h).join(".local").join("share")),
+        env::var("HOME")
+            .ok()
+            .map(|h| PathBuf::from(h).join("Library").join("Application Support")),
     ];
-    for dir in pointer_candidates.into_iter().flatten() {
+    let pointer_candidates = [APP_ID, LEGACY_APP_ID].into_iter().flat_map(|id| {
+        data_dirs
+            .iter()
+            .flatten()
+            .map(move |d| Some(d.join(id)))
+            .collect::<Vec<_>>()
+    });
+    for dir in pointer_candidates.flatten() {
         let cand = dir.join("storage_pointer.json");
         let Ok(raw) = fs::read_to_string(&cand) else {
             continue;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { HashRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { PanelLeft, Plus } from "lucide-react";
@@ -18,19 +18,22 @@ import { TitleBar } from "./components/TitleBar";
 import { Toast } from "./components/Toast";
 import { useMainWindowIntegration, useStorageSync } from "./hooks/useDesktopIntegration";
 import { useT } from "./i18n/useT";
-import { QuickAddPage } from "./pages/QuickAddPage";
-import { TodayPage } from "./pages/TodayPage";
 import { useUpdater } from "./services/updater";
-import { DocsPage } from "./pages/DocsPage";
 import { HomePage } from "./pages/HomePage";
-import { ListDetailPage } from "./pages/ListDetailPage";
-import { ListsPage } from "./pages/ListsPage";
-import { SettingsPage } from "./pages/SettingsPage";
-import { ShortcutsPage } from "./pages/ShortcutsPage";
-import { TrashPage } from "./pages/TrashPage";
-import { WidgetPage } from "./pages/WidgetPage";
 import { storageApi } from "./services/storageApi";
 import { useListyStore } from "./store/useListyStore";
+
+// Pages other than Home load on first visit. Each window (main, widget, quick add) then
+// loads only the code it shows, and no chunk grows past Vite's 500 kB warning.
+const TodayPage = lazy(() => import("./pages/TodayPage").then((m) => ({ default: m.TodayPage })));
+const ListsPage = lazy(() => import("./pages/ListsPage").then((m) => ({ default: m.ListsPage })));
+const ListDetailPage = lazy(() => import("./pages/ListDetailPage").then((m) => ({ default: m.ListDetailPage })));
+const TrashPage = lazy(() => import("./pages/TrashPage").then((m) => ({ default: m.TrashPage })));
+const ShortcutsPage = lazy(() => import("./pages/ShortcutsPage").then((m) => ({ default: m.ShortcutsPage })));
+const DocsPage = lazy(() => import("./pages/DocsPage").then((m) => ({ default: m.DocsPage })));
+const SettingsPage = lazy(() => import("./pages/SettingsPage").then((m) => ({ default: m.SettingsPage })));
+const WidgetPage = lazy(() => import("./pages/WidgetPage").then((m) => ({ default: m.WidgetPage })));
+const QuickAddPage = lazy(() => import("./pages/QuickAddPage").then((m) => ({ default: m.QuickAddPage })));
 
 function useResolvedTheme(preference: "system" | "light" | "dark"): "light" | "dark" {
   const [systemDark, setSystemDark] = useState(() =>
@@ -195,10 +198,18 @@ function AppShell() {
   }, [navigate, undo, showToast, t]);
 
   if (isWidget) {
-    return <WidgetPage />;
+    return (
+      <Suspense fallback={null}>
+        <WidgetPage />
+      </Suspense>
+    );
   }
   if (isQuickAddWindow) {
-    return <QuickAddPage />;
+    return (
+      <Suspense fallback={null}>
+        <QuickAddPage />
+      </Suspense>
+    );
   }
 
   return (
@@ -310,6 +321,7 @@ function AppShell() {
             </div>
           ) : (
             <div className="listy-page">
+            <Suspense fallback={<Spinner label={t("common.loading")} />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/today" element={<TodayPage />} />
@@ -324,6 +336,7 @@ function AppShell() {
               <Route path="/docs" element={<DocsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
+            </Suspense>
             </div>
           )}
         </main>
