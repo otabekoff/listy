@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CalendarCheck, PanelLeft, Plus } from "lucide-react";
+import { PanelLeft, Plus } from "lucide-react";
 import { useT } from "../i18n/useT";
 import { dueNowCount } from "../services/due";
 import { Button, CountBadge, Keycaps, Tooltip } from "../ui";
@@ -12,6 +12,7 @@ import {
   NavListsIcon,
   NavSettingsIcon,
   NavShortcutsIcon,
+  NavTodayIcon,
   NavTrashIcon,
 } from "./NavIcons";
 import { ListyLogo } from "./ListyLogo";
@@ -42,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       path: "/today",
       label: t("nav.today"),
-      icon: <CalendarCheck size={20} strokeWidth={1.7} style={{ margin: "0 1px" }} />,
+      icon: <NavTodayIcon size={22} />,
       badge: dueCount > 0 ? dueCount : undefined,
     },
     { path: "/all", label: t("nav.allLists"), icon: <NavListsIcon size={22} /> },

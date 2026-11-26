@@ -12,6 +12,8 @@ export interface DueSummary {
   today: DueEntry[];
   /** Due in the next `upcomingDays` days (tomorrow onwards). */
   upcoming: DueEntry[];
+  /** Items with a due date that were completed today, so ticking one off is visible. */
+  doneToday: DueEntry[];
 }
 
 /**
@@ -20,15 +22,23 @@ export interface DueSummary {
  */
 export function collectDue(lists: ListData[], now = new Date(), upcomingDays = 7): DueSummary {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-  const summary: DueSummary = { overdue: [], today: [], upcoming: [] };
+  const summary: DueSummary = { overdue: [], today: [], upcoming: [], doneToday: [] };
+  const todayKey = toDateKey(now);
   for (const list of lists) {
     if (list.type === "simple") continue;
     for (const item of list.items) {
-      if (item.completed || !item.dueDate) continue;
+      if (!item.dueDate) continue;
       const date = parseLocalDate(item.dueDate);
       if (!date) continue;
       const days = Math.round((date.getTime() - today) / 86_400_000);
       const entry = { list, item, days };
+      if (item.completed) {
+        const doneAt = new Date(item.updatedAt);
+        if (!Number.isNaN(doneAt.getTime()) && toDateKey(doneAt) === todayKey) {
+          summary.doneToday.push(entry);
+        }
+        continue;
+      }
       if (days < 0) summary.overdue.push(entry);
       else if (days === 0) summary.today.push(entry);
       else if (days <= upcomingDays) summary.upcoming.push(entry);
@@ -38,6 +48,7 @@ export function collectDue(lists: ListData[], now = new Date(), upcomingDays = 7
   summary.overdue.sort(byDate);
   summary.today.sort(byDate);
   summary.upcoming.sort(byDate);
+  summary.doneToday.sort(byDate);
   return summary;
 }
 

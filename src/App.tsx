@@ -309,6 +309,7 @@ function AppShell() {
               <Spinner label={t("common.loading")} />
             </div>
           ) : (
+            <div className="listy-page">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/today" element={<TodayPage />} />
@@ -323,6 +324,7 @@ function AppShell() {
               <Route path="/docs" element={<DocsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
+            </div>
           )}
         </main>
       </div>
