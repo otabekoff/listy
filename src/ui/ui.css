@@ -281,24 +281,51 @@
 }
 
 .win-radio-label {
+  position: relative;
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  /* Circle stays on the first line when the text wraps. */
+  align-items: flex-start;
+  gap: 10px;
   cursor: pointer;
+  user-select: none;
   font-size: 14px;
+  line-height: 20px;
 }
 
 .win-radio-circle {
+  box-sizing: border-box;
+  flex-shrink: 0;
   width: 18px;
   height: 18px;
+  margin-top: 1px;
   border-radius: 50%;
   border: 1.5px solid var(--win-border-hover);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: border-width 0.1s ease, border-color 0.1s ease;
 }
 
-.win-radio-circle.checked {
+.win-radio-label:hover .win-radio-circle {
+  border-color: var(--win-fg-2);
+}
+
+.win-checkbox-input:focus-visible + .win-radio-circle {
+  outline: 2px solid var(--win-brand);
+  outline-offset: 2px;
+}
+
+.win-radio-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.win-radio-description {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--win-fg-3);
+}
+
+.win-radio-circle.checked,
+.win-radio-label:hover .win-radio-circle.checked {
   border-color: var(--win-brand);
   border-width: 5px;
 }

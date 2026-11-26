@@ -251,7 +251,7 @@ export const ListDialog: React.FC<ListDialogProps> = ({
                       style={{
                         display: "grid",
                         gridTemplateColumns: "1fr 1fr",
-                        gap: "8px 16px",
+                        gap: "12px 20px",
                         width: "100%",
                       }}
                     >
@@ -259,7 +259,8 @@ export const ListDialog: React.FC<ListDialogProps> = ({
                         <Radio
                           key={lt}
                           value={lt}
-                          label={`${t(`listDialog.type.${lt}`)} (${t(`listDialog.type.${lt}.desc`)})`}
+                          label={t(`listDialog.type.${lt}`)}
+                          description={t(`listDialog.type.${lt}.desc`)}
                         />
                       ))}
                     </div>
