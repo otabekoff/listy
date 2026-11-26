@@ -64,7 +64,18 @@ CI (`.github/workflows/ci.yml`) runs the type-check, build, tests and clippy on 
 
 **Updater signing key.** Updates are verified with the public key in `tauri.conf.json`. The matching private key is `~/.tauri/listy.key` on the machine that generated it. Add its contents as the repository secret `TAURI_SIGNING_PRIVATE_KEY` (and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` if you give it a password). Back the key up: without it, installed copies can't verify future updates.
 
-**Code signing.** The installers are not code-signed yet, so Windows SmartScreen shows "Unknown publisher" on first install. That needs a code-signing certificate (for example Azure Trusted Signing, or SignPath's free plan for open-source projects); then set `bundle.windows.signCommand` or `certificateThumbprint` in `tauri.conf.json`.
+**Code signing.** The installers are not code-signed yet, so Windows SmartScreen shows "Unknown publisher" on first install. Signing through the SignPath Foundation program is being set up (see the policy below).
+
+## Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org).
+
+- **Committers and reviewers:** [Otabek Sadiridinov](https://github.com/otabekoff)
+- **Approvers:** [Otabek Sadiridinov](https://github.com/otabekoff)
+
+Only release builds made by the GitHub Actions workflow in this repository (`.github/workflows/release.yml`) from a version tag are signed. Every signing request is approved manually.
+
+**Privacy.** Listy stores your data only in the storage folder you choose. It does not transfer any information to other networked systems unless you ask it to, with one exception: the update check, which downloads the release information file from this repository's GitHub releases (`latest.json`) shortly after start-up and when you click *Check for updates*. No personal data is sent with it.
 
 ## Author & License
 
