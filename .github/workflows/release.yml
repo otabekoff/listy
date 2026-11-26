@@ -1,0 +1,61 @@
+name: Release
+
+# Push a tag such as v0.2.0 to build the installers and a draft GitHub release.
+# Publishing the draft makes it the "latest" release, which the in-app updater reads.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - name: Build installers and draft release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Updater signing key (contents of ~/.tauri/listy.key). Not the code-signing
+          # certificate: see README, "Releasing".
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: Listy ${{ github.ref_name }}
+          releaseBody: See the changes below and install with the .msi or -setup.exe file.
+          releaseDraft: true
+          prerelease: false
+          includeUpdaterJson: true
+          # Updater artifacts need the private key, so only release builds make them.
+          args: --config src-tauri/tauri.release.conf.json
+
+      - name: Build listy-cli and listy-mcp
+        working-directory: src-tauri
+        run: cargo build --release --bin listy-cli --bin listy-mcp
+
+      - name: Attach CLI and MCP binaries
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: >
+          gh release upload "${{ github.ref_name }}"
+          src-tauri/target/release/listy-cli.exe
+          src-tauri/target/release/listy-mcp.exe
+          --clobber

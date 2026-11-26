@@ -1,0 +1,64 @@
+:root,
+[data-theme="light"] {
+  --win-mica-bg: linear-gradient(145deg, #f3f5fa 0%, #eef1f7 50%, #f6f7fb 100%);
+  --win-bg-appbar: #e3e7f0;
+  --win-bg-canvas: transparent;
+  --win-bg-sidebar: #eaeef5;
+  --win-bg-card: rgba(255, 255, 255, 0.72);
+  --win-bg-card-solid: #ffffff;
+  --win-bg-subtle: rgba(255, 255, 255, 0.5);
+  --win-bg-hover: rgba(0, 0, 0, 0.038);
+  --win-bg-active: rgba(0, 0, 0, 0.055);
+  --win-bg-input: rgba(255, 255, 255, 0.78);
+  --win-fg-1: #1a1a1a;
+  --win-fg-2: #444444;
+  --win-fg-3: #6b6b6b;
+  --win-fg-on-brand: #ffffff;
+  --win-border-1: rgba(0, 0, 0, 0.12);
+  --win-border-2: rgba(0, 0, 0, 0.06);
+  --win-border-hover: rgba(0, 0, 0, 0.2);
+  --win-brand: #0067c0;
+  --win-brand-hover: #005a9e;
+  --win-brand-tint: rgba(0, 103, 192, 0.11);
+  --win-brand-fg: #005fb8;
+  --win-danger: #c42b1c;
+  --win-danger-tint: rgba(196, 43, 28, 0.11);
+  --win-warning: #9d5d00;
+  --win-warning-tint: rgba(245, 158, 11, 0.15);
+  --win-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --win-shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+  --win-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.16);
+  --win-backdrop: rgba(0, 0, 0, 0.32);
+}
+
+[data-theme="dark"] {
+  --win-mica-bg: radial-gradient(circle at 15% 10%, #232a3b 0%, #1c1f27 45%, #191b22 100%);
+  --win-bg-appbar: #13151b;
+  --win-bg-canvas: transparent;
+  --win-bg-sidebar: #181a22;
+  --win-bg-card: rgba(255, 255, 255, 0.048);
+  --win-bg-card-solid: #2c2f36;
+  --win-bg-subtle: rgba(255, 255, 255, 0.032);
+  --win-bg-hover: rgba(255, 255, 255, 0.065);
+  --win-bg-active: rgba(255, 255, 255, 0.085);
+  --win-bg-input: rgba(255, 255, 255, 0.055);
+  --win-fg-1: #ffffff;
+  --win-fg-2: #d4d4d8;
+  --win-fg-3: #9a9da6;
+  --win-fg-on-brand: #0c1622;
+  --win-border-1: rgba(255, 255, 255, 0.1);
+  --win-border-2: rgba(255, 255, 255, 0.06);
+  --win-border-hover: rgba(255, 255, 255, 0.18);
+  --win-brand: #4cc2ff;
+  --win-brand-hover: #60cdff;
+  --win-brand-tint: rgba(76, 194, 255, 0.14);
+  --win-brand-fg: #60cdff;
+  --win-danger: #ff99a4;
+  --win-danger-tint: rgba(255, 153, 164, 0.14);
+  --win-warning: #fce100;
+  --win-warning-tint: rgba(252, 225, 0, 0.14);
+  --win-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --win-shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --win-shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --win-backdrop: rgba(0, 0, 0, 0.52);
+}

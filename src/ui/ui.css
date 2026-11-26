@@ -1,0 +1,551 @@
+.win-theme-root {
+  color: var(--win-fg-1);
+  background: var(--win-mica-bg);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.win-theme-root button:focus-visible,
+.win-theme-root [tabindex]:focus-visible {
+  outline: 2px solid var(--win-brand);
+  outline-offset: 1px;
+}
+
+/* Typography */
+.win-title2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--win-fg-1);
+}
+
+.win-title3 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--win-fg-1);
+}
+
+.win-text {
+  color: inherit;
+  line-height: 1.45;
+}
+
+/* Button */
+.win-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 0 14px;
+  height: 34px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.08s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.win-btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.win-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.win-btn-small {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  gap: 6px;
+}
+
+.win-btn-icon-only {
+  padding: 0;
+  width: 34px;
+}
+
+.win-btn-icon-only.win-btn-small {
+  width: 28px;
+}
+
+.win-btn-primary {
+  background-color: var(--win-brand);
+  color: var(--win-fg-on-brand);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.win-btn-primary:hover:not(:disabled) {
+  background-color: var(--win-brand-hover);
+}
+
+.win-btn-danger {
+  background-color: #c42b1c;
+  color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.win-btn-danger:hover:not(:disabled) {
+  background-color: #a82315;
+}
+
+.win-btn-secondary {
+  background-color: var(--win-bg-card);
+  color: var(--win-fg-1);
+  border-color: var(--win-border-1);
+  box-shadow: var(--win-shadow-sm);
+}
+
+.win-btn-secondary:hover:not(:disabled) {
+  background-color: var(--win-bg-hover);
+  border-color: var(--win-border-hover);
+}
+
+.win-btn-subtle,
+.win-btn-transparent {
+  background-color: transparent;
+  color: var(--win-fg-1);
+}
+
+.win-btn-subtle:hover:not(:disabled),
+.win-btn-transparent:hover:not(:disabled) {
+  background-color: var(--win-bg-hover);
+}
+
+/* Input & Textarea */
+.win-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background-color: var(--win-bg-input);
+  border: 1px solid var(--win-border-1);
+  border-bottom: 2px solid var(--win-border-hover);
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.win-input-wrap:focus-within {
+  border-color: var(--win-border-1);
+  border-bottom-color: var(--win-brand);
+}
+
+.win-input-el {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--win-fg-1);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.win-input-el::placeholder {
+  color: var(--win-fg-3);
+}
+
+.win-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background-color: var(--win-bg-input);
+  border: 1px solid var(--win-border-1);
+  border-bottom: 2px solid var(--win-border-hover);
+  color: var(--win-fg-1);
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+}
+
+.win-textarea:focus {
+  border-bottom-color: var(--win-brand);
+}
+
+/* Field */
+.win-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.win-field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--win-fg-1);
+}
+
+/* Checkbox */
+.win-checkbox-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+}
+
+.win-checkbox-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--win-border-hover);
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s ease;
+  flex-shrink: 0;
+}
+
+.win-checkbox-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.win-checkbox-input:focus-visible + .win-checkbox-box {
+  outline: 2px solid var(--win-brand);
+  outline-offset: 2px;
+}
+
+.win-checkbox-box.checked {
+  background-color: var(--win-brand);
+  border-color: var(--win-brand);
+  color: var(--win-fg-on-brand);
+}
+
+/* Switch */
+.win-switch {
+  width: 40px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1.5px solid var(--win-border-hover);
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.win-switch.checked {
+  background-color: var(--win-brand);
+  border-color: var(--win-brand);
+}
+
+.win-switch-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--win-fg-2);
+  position: absolute;
+  top: 2.5px;
+  left: 3px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.win-switch.checked .win-switch-thumb {
+  transform: translateX(19px);
+  background-color: var(--win-fg-on-brand);
+}
+
+/* Radio */
+.win-radio-group {
+  display: flex;
+  gap: 14px;
+}
+
+.win-radio-group.vertical {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.win-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.win-radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--win-border-hover);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win-radio-circle.checked {
+  border-color: var(--win-brand);
+  border-width: 5px;
+}
+
+/* Card */
+.win-card {
+  background-color: var(--win-bg-card);
+  border: 1px solid var(--win-border-2);
+  border-radius: 10px;
+  box-shadow: var(--win-shadow-sm);
+}
+
+/* Badge */
+.win-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ProgressBar */
+.win-progress-track {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background-color: var(--win-border-2);
+  overflow: hidden;
+}
+
+.win-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--win-brand);
+  transition: width 0.2s ease;
+}
+
+/* Dialog */
+.win-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--win-backdrop);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.win-dialog-surface {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  border-radius: 10px;
+  box-shadow: var(--win-shadow-lg);
+  padding: 22px 24px;
+  color: var(--win-fg-1);
+}
+
+.win-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.win-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* Dropdown & Menu */
+.win-popover-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.win-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 180px;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  border-radius: 8px;
+  box-shadow: var(--win-shadow-md);
+  color: var(--win-fg-1);
+  padding: 4px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* WinUI 3 SettingsCard & SettingsSection */
+.win-settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.win-settings-section-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--win-fg-1);
+  margin: 4px 0 6px 2px;
+}
+
+.win-settings-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  min-height: 62px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  background-color: var(--win-bg-card);
+  border: 1px solid var(--win-border-2);
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.win-settings-card:hover {
+  background-color: var(--win-bg-hover);
+  border-color: var(--win-border-1);
+}
+
+.win-settings-card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  flex: 1;
+}
+
+.win-settings-card-icon {
+  color: var(--win-fg-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.win-popover-left {
+  left: 0;
+  right: auto;
+}
+
+.win-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--win-fg-1);
+  font-family: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.win-menu-item:hover,
+.win-menu-item:focus-visible {
+  background-color: var(--win-bg-hover);
+  outline: none;
+}
+
+.win-menu-item:focus-visible {
+  box-shadow: inset 0 0 0 1.5px var(--win-brand);
+}
+
+.win-menu-item.selected {
+  background-color: var(--win-brand-tint);
+  color: var(--win-brand-fg);
+  font-weight: 500;
+}
+
+/* MessageBar */
+.win-message-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: var(--win-danger-tint);
+  border: 1px solid var(--win-danger);
+  color: var(--win-fg-1);
+  font-size: 13.5px;
+}
+
+/* Spinner */
+@keyframes win-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.win-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid var(--win-border-1);
+  border-top-color: var(--win-brand);
+  border-radius: 50%;
+  animation: win-spin 0.7s linear infinite;
+}
+
+/* Tooltip */
+.win-tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.win-tooltip {
+  position: fixed;
+  z-index: 2000;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  box-shadow: var(--win-shadow-md);
+  color: var(--win-fg-1);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: win-tooltip-in 0.12s ease-out;
+}
+
+@keyframes win-tooltip-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

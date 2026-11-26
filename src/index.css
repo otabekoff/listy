@@ -1,0 +1,555 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: var(--win-fg-1);
+  font-family: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* Thin Windows 11 Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--win-border-1);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--win-border-hover);
+}
+
+/* Custom Windows 11 TitleBar / AppBar */
+.listy-titlebar {
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--win-bg-appbar);
+  border-bottom: 1px solid var(--win-border-1);
+  user-select: none;
+  padding-left: 12px;
+}
+
+.listy-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  flex: 1;
+}
+
+.listy-back-btn {
+  width: 30px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--win-fg-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.listy-back-btn:hover {
+  background-color: var(--win-bg-hover);
+}
+
+.listy-titlebar-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--win-fg-1);
+  letter-spacing: 0.01em;
+}
+
+.listy-titlebar-controls {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.listy-win-btn {
+  width: 46px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--win-fg-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.listy-win-btn:hover {
+  background-color: var(--win-bg-hover);
+}
+
+.listy-win-close:hover {
+  background-color: #c42b1c;
+  color: #ffffff;
+}
+
+/* Windows 11 Snap Layouts Flyout */
+.listy-snap-flyout {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: -36px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  box-shadow: var(--win-shadow-lg);
+  display: grid;
+  grid-template-columns: repeat(2, 82px);
+  gap: 10px;
+  z-index: 1200;
+}
+
+.listy-snap-layout {
+  display: grid;
+  gap: 4px;
+  width: 82px;
+  height: 52px;
+  padding: 4px;
+  border-radius: 6px;
+  background-color: var(--win-bg-subtle);
+  border: 1px solid var(--win-border-2);
+}
+
+.listy-snap-zone {
+  border-radius: 3px;
+  border: 1px solid var(--win-border-1);
+  background-color: var(--win-bg-hover);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.listy-snap-zone:hover {
+  background-color: var(--win-brand);
+  border-color: var(--win-brand);
+}
+
+/* App Shell */
+.listy-shell {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.listy-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 24px 32px;
+  background-color: var(--win-bg-canvas);
+  transition: padding-left 0.18s ease;
+}
+
+.listy-main.sidebar-collapsed {
+  padding-left: 60px;
+}
+
+.listy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 3px 0;
+}
+
+.listy-list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Sidebar */
+.listy-sidebar {
+  width: 268px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px;
+  background-color: var(--win-bg-sidebar);
+  border-right: 1px solid var(--win-border-1);
+  user-select: none;
+  overflow: hidden;
+  transition: width 0.18s ease, padding 0.18s ease, opacity 0.15s ease;
+}
+
+.listy-sidebar.collapsed {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-right-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.listy-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.listy-nav-btn {
+  position: relative;
+  justify-content: flex-start !important;
+  width: 100%;
+  gap: 13px !important;
+  padding: 10px 14px !important;
+  height: 44px !important;
+  font-size: 14.5px !important;
+  border-radius: 8px !important;
+}
+
+.listy-nav-btn.active {
+  background-color: var(--win-bg-card) !important;
+  font-weight: 600 !important;
+}
+
+.listy-nav-indicator {
+  position: absolute;
+  left: 3px;
+  top: 11px;
+  bottom: 11px;
+  width: 3.5px;
+  border-radius: 999px;
+  background-color: var(--win-brand);
+}
+
+.listy-sidebar-footer {
+  padding-top: 12px;
+  border-top: 1px solid var(--win-border-2);
+}
+
+.listy-storage-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--win-fg-2);
+  font-size: 12px;
+}
+
+.listy-storage-pill:hover {
+  background-color: var(--win-bg-hover);
+}
+
+/* Cards & Items */
+.listy-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 12px;
+  background-color: var(--win-bg-card);
+  border: 1.5px solid var(--win-border-2);
+  box-shadow: var(--win-shadow-sm);
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+  overflow: hidden;
+}
+
+.listy-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--win-shadow-md);
+  border-color: var(--card-accent, var(--win-border-hover));
+}
+
+.listy-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  opacity: 1;
+  transition: height 0.16s ease, opacity 0.16s ease;
+}
+
+.listy-card:hover .listy-card-accent {
+  height: 0;
+  opacity: 0;
+}
+
+.listy-row-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background-color: var(--win-bg-card);
+  border: 1px solid var(--win-border-2);
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.listy-row-card:hover {
+  background-color: var(--win-bg-hover);
+  border-color: var(--win-border-hover);
+}
+
+.listy-create-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 148px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px dashed var(--win-border-1);
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--win-fg-2);
+  font-family: inherit;
+  transition: border-color 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.listy-create-card:hover {
+  border-color: var(--win-brand);
+  background-color: var(--win-bg-hover);
+  color: var(--win-brand-fg);
+}
+
+.listy-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background-color: var(--win-bg-card);
+  border: 1px solid var(--win-border-2);
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.listy-item-row:hover {
+  background-color: var(--win-bg-subtle);
+  border-color: var(--win-border-1);
+}
+
+/* Dialog pickers */
+.listy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--win-border-1);
+  background-color: var(--win-bg-subtle);
+  color: var(--win-fg-1);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.listy-chip.selected {
+  border-color: var(--win-brand);
+  background-color: var(--win-brand-tint);
+  color: var(--win-brand-fg);
+}
+
+.listy-icon-pick {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--win-border-1);
+  background-color: var(--win-bg-input);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listy-icon-pick.selected {
+  border: 2px solid var(--win-brand);
+  background-color: var(--win-brand-tint);
+}
+
+.listy-color-pick {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.listy-color-pick.selected {
+  border-color: var(--win-fg-1);
+  transform: scale(1.1);
+}
+
+/* Fullscreen Quick Add FAB */
+.listy-fab-wrap {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 800;
+}
+
+.listy-fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: var(--win-brand);
+  color: var(--win-fg-on-brand);
+  box-shadow: var(--win-shadow-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.14s ease, background-color 0.14s ease;
+}
+
+.listy-fab:hover {
+  background-color: var(--win-brand-hover);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.listy-fab:active {
+  transform: scale(0.96);
+}
+
+/* Inline error shown inside dialogs when a save fails. */
+.listy-dialog-error {
+  margin: 14px 0 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--win-danger);
+  background-color: var(--win-danger-tint);
+  color: var(--win-fg-1);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Compact error strip in the desktop widget. */
+.listy-widget-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--win-danger);
+  background-color: var(--win-danger-tint);
+  color: var(--win-fg-1);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.listy-widget-error span {
+  flex: 1;
+}
+
+.listy-widget-error button {
+  border: none;
+  background: transparent;
+  color: var(--win-fg-2);
+  cursor: pointer;
+  display: inline-flex;
+  padding: 2px;
+}
+
+/* Toast (bottom centre, with Undo) */
+.listy-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(560px, calc(100vw - 32px));
+  padding: 8px 8px 8px 16px;
+  border-radius: 10px;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  box-shadow: var(--win-shadow-lg);
+  color: var(--win-fg-1);
+  font-size: 13.5px;
+  animation: listy-toast-in 160ms ease-out;
+}
+
+.listy-toast-close {
+  border: none;
+  background: transparent;
+  color: var(--win-fg-3);
+  cursor: pointer;
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.listy-toast-close:hover {
+  background-color: var(--win-bg-hover);
+}
+
+@keyframes listy-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Global Quick Add window */
+.listy-quick-add-window {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--win-bg-card-solid);
+  border: 1px solid var(--win-border-1);
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.listy-quick-add-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 4px 0 14px;
+  flex-shrink: 0;
+  background-color: var(--win-bg-appbar);
+  border-bottom: 1px solid var(--win-border-1);
+  user-select: none;
+}
+
+/* Subtasks under an item */
+.listy-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 0 2px;
+}

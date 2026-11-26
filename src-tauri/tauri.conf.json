@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Listy",
+  "version": "0.1.0",
+  "identifier": "com.listy.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Listy",
+        "width": 1180,
+        "height": 760,
+        "minWidth": 400,
+        "minHeight": 500,
+        "maximized": false,
+        "resizable": true,
+        "center": true,
+        "decorations": false,
+        "dragDropEnabled": false,
+        "label": "main",
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": {
+        "default-src": "'self'",
+        "script-src": "'self'",
+        "style-src": "'self' 'unsafe-inline'",
+        "img-src": "'self' asset: http://asset.localhost data: blob: https:",
+        "font-src": "'self' data:",
+        "connect-src": "'self' ipc: http://ipc.localhost",
+        "object-src": "'none'",
+        "base-uri": "'self'",
+        "form-action": "'none'",
+        "frame-src": "'none'"
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "publisher": "Otabek Sadiridinov (MohirLab.uz)",
+    "copyright": "Copyright (c) 2026 Otabek Sadiridinov (MohirLab.uz)",
+    "homepage": "https://github.com/otabekoff",
+    "license": "MIT",
+    "licenseFile": "../LICENSE",
+    "category": "Productivity",
+    "shortDescription": "Everything worth keeping, in lists.",
+    "longDescription": "Listy is a local-first desktop list manager. Every list is stored as a human-readable JSON file inside a folder you choose: no cloud, no accounts, no lock-in.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEJBODlCRjg3M0JCQzhDQUIKUldTcmpMdzdoNytKdXRCeTFQUlFwbzd0bXl5S0EvYkRXTS9PRGNUdHRXcElvUnlkY1NxYjZrejYK",
+      "endpoints": [
+        "https://github.com/otabekoff/listy/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}
